@@ -21,13 +21,11 @@ import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.service.permission.PermissionDescription;
 import org.spongepowered.api.service.permission.PermissionService;
-import org.spongepowered.api.text.LiteralText;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.channel.MessageReceiver;
 
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.stream.IntStream;
 
 @Plugin( id = au.id.rleach.chatclear.Plugin.ID,
          name = au.id.rleach.chatclear.Plugin.NAME,
@@ -134,7 +132,10 @@ public class ChatClear {
     }
 
     void doClearChat(final MessageReceiver receiver){
-        final LiteralText[] clear = (LiteralText[]) IntStream.range(0, chatClearConfig.lines-1).mapToObj(x -> Text.NEW_LINE).toArray();
-        receiver.sendMessages(clear);
+        final Text.Builder builder = Text.builder();
+        for(int i=0; i < chatClearConfig.lines; i++){
+            builder.append(Text.NEW_LINE);
+        }
+        receiver.sendMessages(builder.build());
     }
 }

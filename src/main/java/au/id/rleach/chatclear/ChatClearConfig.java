@@ -4,13 +4,15 @@ import com.google.common.reflect.TypeToken;
 import ninja.leaping.configurate.objectmapping.Setting;
 import ninja.leaping.configurate.objectmapping.serialize.ConfigSerializable;
 
+import java.util.List;
+
 @ConfigSerializable
 public class ChatClearConfig {
 
     public static final TypeToken<ChatClearConfig> TYPE = TypeToken.of(ChatClearConfig.class);
 
     @Setting(value = "aliases", comment = "chatclear command aliases")
-    String[] aliases;
+    List<String> aliases;
     @Setting(value = "permission", comment = "permission used for command")
     String permission;
     @Setting(value = "description", comment = "description used for help text on command")
@@ -24,7 +26,7 @@ public class ChatClearConfig {
     String clearOnJoinPermission;
 
     @Setting(value = "globalClearAliases", comment = "globalClear command aliases")
-    String[] globalClearAliases;
+    List<String> globalClearAliases;
     @Setting(value = "globalClearPemission", comment = "permission required to clear chat of an entire server")
     String globalClearPemission;
     @Setting(value = "globalClearDescription", comment = "clears the chat for everyone that does not have immunity")
