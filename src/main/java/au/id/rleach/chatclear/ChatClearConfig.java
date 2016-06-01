@@ -27,8 +27,8 @@ public class ChatClearConfig {
 
     @Setting(value = "globalClearAliases", comment = "globalClear command aliases")
     List<String> globalClearAliases;
-    @Setting(value = "globalClearPemission", comment = "permission required to clear chat of an entire server")
-    String globalClearPemission;
+    @Setting(value = "globalClearPermission", comment = "permission required to clear chat of an entire server")
+    String globalClearPermission;
     @Setting(value = "globalClearDescription", comment = "clears the chat for everyone that does not have immunity")
     String globalClearDescription;
 

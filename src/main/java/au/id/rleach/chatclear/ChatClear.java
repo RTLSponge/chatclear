@@ -14,7 +14,6 @@ import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.filter.cause.Root;
-import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.plugin.Plugin;
@@ -63,7 +62,7 @@ public class ChatClear {
         globalClearMapping = Sponge.getCommandManager().register(this, globalClearChat(), chatClearConfig.globalClearAliases);
 
         registerPD(PermissionDescription.ROLE_USER, chatClearConfig.permission, "Allow access to clearchat command");
-        registerPD(PermissionDescription.ROLE_STAFF, chatClearConfig.globalClearPemission, "Allow access to global clearchat command");
+        registerPD(PermissionDescription.ROLE_STAFF, chatClearConfig.globalClearPermission, "Allow access to global clearchat command");
         registerPD(PermissionDescription.ROLE_USER, chatClearConfig.clearOnJoinPermission, "having this clears your chat on join");
         registerPD(PermissionDescription.ROLE_STAFF, chatClearConfig.immunityPermissionGlobal, "having this prevents you from having your"
                 + " chat cleared during global clear commands");
@@ -74,13 +73,6 @@ public class ChatClear {
         pdbuilder.ifPresent(
                 pd->pd.assign(PermissionDescription.ROLE_USER, true).id(permission).description(Text.of(description)).register()
         );
-    }
-
-    @Listener
-    public void onReload(final GameReloadEvent reload){
-        removeMapping(clearMapping);
-        removeMapping(globalClearMapping);
-        setup();
     }
 
     private void removeMapping(final Optional<CommandMapping> mapping){
@@ -107,7 +99,7 @@ public class ChatClear {
 
     private CommandCallable globalClearChat(){
         return CommandSpec.builder()
-                .permission(chatClearConfig.globalClearPemission)
+                .permission(chatClearConfig.globalClearPermission)
                 .description(Text.of(chatClearConfig.globalClearDescription))
                 .executor(this::doGlobalClear)
                 .build();
