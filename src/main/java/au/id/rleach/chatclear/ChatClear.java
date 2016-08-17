@@ -14,6 +14,7 @@ import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.filter.cause.Root;
+import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.plugin.Plugin;
@@ -48,6 +49,13 @@ public class ChatClear {
     @Listener
     public void onPreInit(GameInitializationEvent event){
         permissionService = Sponge.getServiceManager().provide(PermissionService.class).get();
+        setup();
+    }
+
+    @Listener
+    public void onReload(final GameReloadEvent reload){
+        removeMapping(clearMapping);
+        removeMapping(globalClearMapping);
         setup();
     }
 
